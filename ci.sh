@@ -11,7 +11,7 @@ kubectl apply -f https://raw.githubusercontent.com/openfaas/faas-netes/master/na
 helm repo add openfaas https://openfaas.github.io/faas-netes/
 helm upgrade openfaas --install openfaas/openfaas     --namespace openfaas      --set functionNamespace=openfaas-fn     --set generateBasicAuth=true
 sleep 30 
-kubectl port-forward --address 0.0.0.0 svc/gateway -n openfaas 8080:8080 &
+kubectl port-forward svc/gateway -n openfaas 8080:8080 &
 kubectl get pods -A
 export PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
 echo -n $PASSWORD | faas-cli login --username=admin --password-stdin
