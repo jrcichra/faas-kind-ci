@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-GO111MODULE="on" go get sigs.k8s.io/kind@v0.7.0
+go get sigs.k8s.io/kind
 kind create cluster
 kubectl cluster-info
 kubectl get pods -A
