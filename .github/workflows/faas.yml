@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        image: ["sha256:0e20578828edd939d25eb98496a685c76c98d54084932f76069f886ec315d694","sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62"]
+        image: ["0e20578828edd939d25eb98496a685c76c98d54084932f76069f886ec315d694","9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62"]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
