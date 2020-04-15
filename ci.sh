@@ -15,3 +15,7 @@ kubectl get pods -A
 export PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
 echo -n $PASSWORD | faas-cli login --username=admin --password-stdin
 faas-cli new test --lang python3
+cd test/
+faas-cli up -f test.yml
+sleep 5
+faas-cli up -f test.yml
