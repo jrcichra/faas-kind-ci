@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 go get sigs.k8s.io/kind
-kind create cluster
+kind create cluster --config kind.yaml
 kubectl cluster-info
 kubectl get pods -A
 echo "current-context:" $(kubectl config current-context)
@@ -11,7 +11,7 @@ kubectl apply -f https://raw.githubusercontent.com/openfaas/faas-netes/master/na
 helm repo add openfaas https://openfaas.github.io/faas-netes/
 helm upgrade openfaas --install openfaas/openfaas     --namespace openfaas      --set functionNamespace=openfaas-fn     --set generateBasicAuth=true
 sleep 120 
-nohup kubectl port-forward svc/gateway -n openfaas 8080:8080 &
+nohup kubectl port-forward svc/gateway --address 0.0.0.0 -n openfaas 8080:8080 &
 sleep 20
 kubectl get pods -A
 export PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
