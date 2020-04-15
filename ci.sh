@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 GO111MODULE="on" go get sigs.k8s.io/kind@v0.7.0
 kind create cluster
 kubectl cluster-info
@@ -14,8 +15,8 @@ kubectl port-forward --address 0.0.0.0 svc/gateway -n openfaas 8080:8080 &
 kubectl get pods -A
 export PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
 echo -n $PASSWORD | faas-cli login --username=admin --password-stdin
-faas-cli new test --lang python3
-cd test/test
-faas-cli up -f test.yml
+faas-cli new faas-kind-ci --lang python3
+cd faas-kind-ci/faas-kind-ci 
+faas-cli up -f faas-kind-ci.yml --prefix jrcichra
 sleep 5
-faas-cli up -f test.yml
+faas-cli up -f faas-kind-ci.yml --prefix jrcichra
