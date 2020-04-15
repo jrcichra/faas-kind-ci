@@ -17,6 +17,6 @@ export PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.
 echo -n $PASSWORD | faas-cli login --username=admin --password-stdin
 faas-cli new faas-kind-ci --lang python3
 cd faas-kind-ci/faas-kind-ci 
-faas-cli up -f faas-kind-ci.yml --prefix jrcichra
+faas-cli up -f faas-kind-ci.yml --prefix=jrcichra
 sleep 5
-faas-cli up -f faas-kind-ci.yml --prefix jrcichra
+faas-cli up -f faas-kind-ci.yml --prefix=jrcichra
