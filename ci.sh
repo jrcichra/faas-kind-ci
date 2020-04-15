@@ -15,8 +15,8 @@ kubectl port-forward --address 0.0.0.0 svc/gateway -n openfaas 8080:8080 &
 kubectl get pods -A
 export PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
 echo -n $PASSWORD | faas-cli login --username=admin --password-stdin
-faas-cli new faas-kind-ci --lang python3
+faas-cli new faas-kind-ci --lang python3 --prefix=jrcichra
 cd faas-kind-ci/faas-kind-ci 
-faas-cli up -f faas-kind-ci.yml --prefix=jrcichra
+faas-cli up -f faas-kind-ci.yml 
 sleep 5
-faas-cli up -f faas-kind-ci.yml --prefix=jrcichra
+faas-cli up -f faas-kind-ci.yml
